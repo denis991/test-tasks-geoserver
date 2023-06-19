@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Координаты плитки Яндекс карт</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Расчет координат плитки Яндекс карт</h1>
+    <div class="form">
+      <div class="form-group">
+        <label for="latitude">Широта:</label>
+        <input type="text" id="latitude" placeholder="Введите широту">
+      </div>
+      <div class="form-group">
+        <label for="longitude">Долгота:</label>
+        <input type="text" id="longitude" placeholder="Введите долготу">
+      </div>
+      <div class="form-group">
+        <label for="zoom">Зум:</label>
+        <input type="text" id="zoom" placeholder="Введите зум">
+      <!-- </div>
+      <button id="calculateBtn">Рассчитать</button>
+      <div class="form-group">
+        <label for="saveCoordinates">Сохранить координаты</label>
+        <input type="checkbox" id="saveCoordinates">
+      </div> -->
+    <!-- </div>
+    <button id="calculateBtn">Рассчитать</button>
+    <div class="form-group">
+      <label for="saveCoordinates" class="checkbox-label">
+        <input type="checkbox" id="saveCoordinates">
+        Сохранить координаты
+      </label>
+    </div> -->
+  </div>
+  <div class="form-group">
+    <label for="saveCoordinates" class="checkbox-label">
+      <input type="checkbox" id="saveCoordinates">
+      Сохранить координаты
+    </label>
+  </div>
+  <button id="calculateBtn">Рассчитать</button>
+
+    </div>
+    <div id="result" class="result">
+      <h2>Результаты:</h2>
+      <div id="tileCoordinates"></div>
+      <div id="tileImage"></div>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>

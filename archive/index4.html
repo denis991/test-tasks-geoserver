@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Координаты плитки Яндекс карт</title>
+		<style>
+			body {
+				font-family: Arial, sans-serif;
+				background-color: #f2f2f2;
+				padding: 20px;
+			}
+
+			h2 {
+				margin-bottom: 20px;
+				color: #333;
+			}
+
+			.form-group {
+				margin-bottom: 15px;
+			}
+
+			.form-group label {
+				display: block;
+				margin-bottom: 5px;
+				color: #555;
+			}
+
+			.form-group input[type='text'] {
+				width: 200px;
+				padding: 5px;
+				font-size: 14px;
+				border: 1px solid #ccc;
+				border-radius: 4px;
+			}
+
+			.btn {
+				padding: 8px 16px;
+				font-size: 14px;
+				color: #fff;
+				background-color: #007bff;
+				border: none;
+				border-radius: 4px;
+				cursor: pointer;
+			}
+
+			.btn:hover {
+				background-color: #0056b3;
+			}
+
+			.result {
+				margin-top: 20px;
+				font-size: 16px;
+				color: #333;
+			}
+		</style>
+	</head>
+	<body>
+		<h2>Координаты плитки Яндекс карт</h2>
+		<div class="form-group">
+			<label for="latitude">Широта:</label>
+			<input type="text" id="latitude" placeholder="Введите широту" />
+		</div>
+		<div class="form-group">
+			<label for="longitude">Долгота:</label>
+			<input type="text" id="longitude" placeholder="Введите долготу" />
+		</div>
+		<div class="form-group">
+			<label for="zoom">Зум:</label>
+			<input type="text" id="zoom" placeholder="Введите зум" />
+		</div>
+		<button class="btn" id="calculateBtn">Рассчитать</button>
+		<div class="result" id="result"></div>
+
+		<script>
+			function calculateTileCoordinates() {
+				var latitudeInput = document.getElementById('latitude');
+				var longitudeInput = document.getElementById('longitude');
+				var zoomInput = document.getElementById('zoom');
+				var resultDiv = document.getElementById('result');
+
+				var latitude = parseFloat(latitudeInput.value);
+				var longitude = parseFloat(longitudeInput.value);
+				var zoom = parseInt(zoomInput.value);
+
+				if (isNaN(latitude) || isNaN(longitude) || isNaN(zoom)) {
+					resultDiv.innerHTML = 'Пожалуйста, введите корректные значения.';
+					return;
+				}
+
+				var tileSize = 256;
+				var worldSize = Math.pow(2, zoom) * tileSize;
+				var x = Math.floor((((longitude + 180) / 360) * worldSize) / tileSize);
+				var y = Math.floor(
+					(((1 -
+						Math.log(
+							Math.tan((latitude * Math.PI) / 180) + 1 / Math.cos((latitude * Math.PI) / 180)
+						) /
+							Math.PI) /
+						2) *
+						worldSize) /
+						tileSize
+				);
+
+				resultDiv.innerHTML = 'X: ' + x + ', Y: ' + y;
+			}
+
+			var calculateBtn = document.getElementById('calculateBtn');
+			calculateBtn.addEventListener('click', calculateTileCoordinates);
+
+			var calculateBtn = document.getElementById('calculateBtn');
+			calculateBtn.addEventListener('click', calculateTileCoordinates);
+
+			var zoomInput = document.getElementById('zoom');
+			zoomInput.addEventListener('keyup', function (event) {
+				if (event.key === 'Enter') {
+					calculateTileCoordinates();
+				}
+			});
+		</script>
+	</body>
+</html>

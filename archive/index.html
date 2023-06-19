@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Координаты плитки Яндекс карт</title>
+  <style>
+    #latitude, #longitude {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Координаты плитки Яндекс карт</h2>
+  <label for="latitude">Широта:</label>
+  <input type="text" id="latitude" placeholder="Введите широту">
+  <br>
+  <label for="longitude">Долгота:</label>
+  <input type="text" id="longitude" placeholder="Введите долготу">
+  <br>
+  <button id="calculateBtn">Рассчитать</button>
+  <br>
+  <div id="result"></div>
+
+  <script>
+    function calculateTileCoordinates() {
+      var latitude = parseFloat(document.getElementById('latitude').value);
+      var longitude = parseFloat(document.getElementById('longitude').value);
+      var zoom = 19; // Задаем зум как константу
+
+      var tileSize = 256;
+      var worldSize = Math.pow(2, zoom) * tileSize;
+      var x = Math.floor((longitude + 180) / 360 * worldSize / tileSize);
+      var y = Math.floor((1 - Math.log(Math.tan(latitude * Math.PI / 180) + 1 / Math.cos(latitude * Math.PI / 180)) / Math.PI) / 2 * worldSize / tileSize);
+
+      document.getElementById('result').innerHTML = 'X: ' + x + ', Y: ' + y;
+    }
+
+    document.getElementById('calculateBtn').addEventListener('click', calculateTileCoordinates);
+  </script>
+</body>
+</html>
